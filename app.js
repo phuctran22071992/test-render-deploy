@@ -7,6 +7,8 @@ const app = express();
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
+
 // Set port and verify_token
 const port = process.env.PORT || 3000;
 const verifyToken = process.env.VERIFY_TOKEN;
@@ -27,7 +29,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
   console.log(`\n\nWebhook received ${timestamp}\n`);
-  console.log(JSON.stringify(req.body, null, 2));
+  console.log(JSON.stringify(req, null, 2));
   res.status(200).end();
 });
 
